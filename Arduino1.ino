@@ -16,18 +16,24 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 float soilHumidity = 0.0;
 
 void setup() {
+  //recieve data from device #8 (Master arduino)
   Wire.begin(8);
   Wire.onReceive(receiveEvent);
+
+  //initialize DHT sensor
   dht.begin();
+  
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+  
   Serial.begin(9600);
   }
 
 void loop() {
 
   delay(2000);
-   
+
+  //Read data from DHT sensor
   float temperature = dht.readTemperature();
   float airHumidity = dht.readHumidity();
   
@@ -39,34 +45,34 @@ void loop() {
   lcd.print("temp:");
   lcd.setCursor(0, 1);
   lcd.print("humid:");
-  
+
+  //print temperature on lcd
   lcd.setCursor(8, 0);
   lcd.print(temperature, 1);
-  
   lcd.setCursor(12, 0);
   lcd.print("C");
 
+  //print air humidity on lcd
   lcd.setCursor(7, 1);
   lcd.print("a");
-  
   lcd.setCursor(8, 1);
   lcd.print(airHumidity, 0);
-  
   lcd.setCursor(10, 1);
   lcd.print("%");
 
+  //print soil humidity on lcd
   lcd.setCursor(12, 1);
   lcd.print("s");
-
   lcd.setCursor(13, 1);
   lcd.print(soilHumidity, 0);
-
   lcd.setCursor(15, 1);
   lcd.print("%");
 
+  //debug print for soil humidity
   Serial.println(soilHumidity);
 }
 
+//function to be called in Wire onReceive 
 void receiveEvent() {
   float x = Wire.read();    // receive byte as a float
   soilHumidity = x;
