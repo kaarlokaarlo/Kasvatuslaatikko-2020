@@ -15,10 +15,10 @@ char my_str[] = " %";
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
 //a variable for watering the plant only once a day max
-boolean waterToday = true;
+boolean waterToday = false;
 
 //amount of water pumped in a single watering (in ms the pump is on)
-int waterAmount = 500;
+int waterAmount = 1000; //1000ms as in 1sec
 
 // Using pin 8 (software sda) and 9 (software scl).
 SoftwareWire myWire(8, 9);
