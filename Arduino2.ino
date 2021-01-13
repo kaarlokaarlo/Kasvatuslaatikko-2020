@@ -78,7 +78,7 @@ void loop() {
   average = 0;
  }
 
- //pumps water to if not yet today and soil humidity is low
+ //pumps water (if not pumped already today) when soil humidity is low
  if(!waterToday && average / 10.0 <= 100.0 && counter == 9){
   pump();
  }
